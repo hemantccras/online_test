@@ -1,0 +1,99 @@
+<!-- templates/dashboard.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+    /* General Styles */
+
+    .dashboard-container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    .dashboard-title {
+        font-size: 2rem;
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
+
+    .take-test-btn {
+        display: block;
+        width: 100%;
+        text-align: center;
+        background-color: #2ecc71;
+        color: white;
+        padding: 12px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-size: 16px;
+        margin-bottom: 20px;
+        transition: background-color 0.3s ease;
+    }
+
+    .take-test-btn:hover {
+        background-color: #27ae60;
+    }
+
+    .test-attempts-card {
+        background-color: #ffffff;
+        border-radius: 8px;
+        padding: 24px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .attempts-title {
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin-bottom: 16px;
+    }
+
+    .attempts-list {
+        margin-bottom: 20px;
+    }
+
+    .attempt-item {
+        border-bottom: 1px solid #ddd;
+        padding-bottom: 16px;
+        margin-bottom: 16px;
+    }
+
+    .attempt-item p {
+        margin: 8px 0;
+    }
+
+    .attempt-item:last-child {
+        border-bottom: none;
+    }
+</style>
+<div class="dashboard-container">
+    <h2 class="dashboard-title">Dashboard</h2>
+    
+    {% if can_take_test %}
+        <a href="{% url 'take_test' %}" class="take-test-btn">
+            Take Test
+        </a>
+    {% endif %}
+
+    <div class="test-attempts-card">
+        <h3 class="attempts-title">Your Test Attempts</h3>
+        {% if attempts %}
+            <div class="attempts-list">
+                {% for attempt in attempts %}
+                    <div class="attempt-item">
+                        <p>Date: {{ attempt.attempt_date|date:"F j, Y" }}</p>
+                        <p>Score: {{ attempt.score }}/20</p>
+                        <p>Status: {% if attempt.passed %}Passed{% else %}Failed{% endif %}</p>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p>No attempts yet.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
+
+<!-- Add this to your CSS file -->
+
+

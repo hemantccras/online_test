@@ -1,0 +1,137 @@
+<!-- templates/base.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}Examination System{% endblock %}</title>
+    <style>
+        body {
+            background-color: #dadada; /* gray-100 equivalent */
+            font-family: Arial, sans-serif;
+            margin: 0px;
+        }
+
+        nav {
+            background-color: white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* shadow-lg equivalent */
+            height: 70px;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 2rem 1rem; /* px-4, py-8 equivalent */
+        }
+
+        .nav-wrapper {
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 0 1rem; /* px-4 */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 100%;
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+
+        }
+
+        .nav-left img {
+            height: 50px;
+            width: 50px;
+        }
+
+        .nav-left a {
+            padding: 1rem 0.5rem; /* py-4 px-2 */
+            text-decoration: none;
+            color: black;
+            margin-left: 10px; /* Optional spacing */
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 1rem; /* space-x-3 equivalent */
+        }
+
+        .nav-right span {
+            padding: 1rem 0.5rem; /* py-4 px-2 */
+        }
+
+        .logout-button {
+            padding: 0.5rem 1rem; /* py-2 px-4 */
+            background-color: #f56565; /* red-500 equivalent */
+            color: white;
+            border-radius: 0.375rem; /* rounded equivalent */
+            text-decoration: none;
+        }
+
+        .logout-button:hover {
+            background-color: #e53e3e; /* darker red on hover */
+        }
+
+        .alert {
+            margin-bottom: 1rem;
+            padding: 1rem;
+            border-radius: 0.375rem;
+        }
+
+        .alert-success {
+            background-color: #f0fff4; /* bg-green-100 */
+            border: 1px solid #48bb78; /* border-green-400 */
+            color: #2f855a; /* text-green-700 */
+        }
+
+        .alert-error {
+            background-color: #fff5f5; /* bg-red-100 */
+            border: 1px solid #f56565; /* border-red-400 */
+            color: #c53030; /* text-red-700 */
+        }
+
+        .alert-info {
+            background-color: #ebf8ff; /* bg-blue-100 */
+            border: 1px solid #63b3ed; /* border-blue-400 */
+            color: #3182ce; /* text-blue-700 */
+        }
+
+        .alert-warning {
+            background-color: #fefcbf; /* bg-yellow-100 */
+            border: 1px solid #ecc94b; /* border-yellow-400 */
+            color: #b7791f; /* text-yellow-700 */
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-wrapper">
+            <div class="nav-left">
+                <img src="https://ccras.nic.in/wp-content/uploads/2023/05/cropped-ccras_logo-e1685092699589.jpg" />
+                <a href="{% url 'dashboard' %}">Research Ethics and GCP Training Program</a>
+            </div>
+            {% if user.is_authenticated %}
+                <div class="nav-right">
+                    <span>Welcome, {{ user.full_name }}</span>
+                    <form action="{% url 'logout' %}" method="post">
+                        {% csrf_token %}
+                        <button class="logout-button" type="submit">Logout</button>
+                    </form>
+                </div>
+            {% endif %}
+        </div>
+    </nav>
+
+    <div class="container">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">
+                    <span>{{ message }}</span>
+                </div>
+            {% endfor %}
+        {% endif %}
+        {% block content %}
+        {% endblock %}
+    </div>
+</body>
+</html>

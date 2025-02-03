@@ -1,0 +1,82 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="certificate-container text-center my-5">
+    <h1 class="mb-4">Your Certificate</h1>
+    
+    <div class="certificate-preview p-5 border mb-4">
+        <h2 class="mb-4">Certificate of Completion</h2>
+        <p class="mb-3">This is to certify that</p>
+        <h3 class="mb-3">{{ user.get_full_name }}</h3>
+        <p>has successfully completed the test on {{ date|date:"F d, Y" }}</p>
+    </div>
+    
+    <a href="{% url 'certificate' %}?download=true" class="btn btn-primary">
+        Download Certificate
+    </a>
+</div>
+    <style>
+        /* Style for the entire certificate container */
+        .certificate-container {
+            text-align: center;
+            margin-top: 50px;
+            margin-bottom: 50px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        /* Title styling */
+        .certificate-title {
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        
+        /* Styling for the certificate preview box */
+        .certificate-preview {
+            display: inline-block;
+            padding: 30px;
+            border: 1px solid #a3a3a3;
+            border-radius: 5px;
+            margin-bottom: 30px;
+            max-width: 80%;
+            background-color: rgb(0, 175, 0,0.3);
+        }
+        
+        .certificate-preview h2 {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        
+        .certificate-preview p {
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+        
+        .certificate-preview h3 {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        
+        /* Styling for the Download Certificate button */
+        .btn-primary {
+            background-color: #007bff;
+            color: white;
+            padding: 12px 25px;
+            font-size: 18px;
+            text-decoration: none;
+            border-radius: 5px;
+            display: inline-block;
+            cursor: pointer;
+        }
+        
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+        </style>
+{% endblock %}

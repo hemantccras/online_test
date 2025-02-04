@@ -98,7 +98,7 @@ def take_test(request):
             messages.success(request, 'Congratulations! You have passed the test. Your certificate has been emailed to you.')
             return redirect('certificate')
         else:
-            messages.warning(request, f'You scored {score}/20. You need 18 to pass. You can retry the test.')
+            messages.warning(request, f'You scored {score}/25. You need 18 to pass. You can retry the test.')
         return redirect('dashboard')
     
     questions = Question.objects.all()

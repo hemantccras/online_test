@@ -80,14 +80,14 @@ def generate_certificate(user,attempt_date):
     try:
         # Define multiple possible paths for the certificate template
         possible_paths = [
-            os.path.join(settings.BASE_DIR, 'static', 'images', 'Cream_Bordered_Appreciation_Certificate.jpg'),
-            os.path.join(settings.BASE_DIR, 'staticfiles', 'images', 'Cream_Bordered_Appreciation_Certificate.jpg'),
-            os.path.join(settings.MEDIA_ROOT, 'images', 'Cream_Bordered_Appreciation_Certificate.jpg'),
-            os.path.join(settings.BASE_DIR, 'exam', 'static', 'images', 'Cream_Bordered_Appreciation_Certificate.jpg')
+            os.path.join(settings.BASE_DIR, 'static', 'images', 'Final_Certificate_GCP.jpg'),
+            os.path.join(settings.BASE_DIR, 'staticfiles', 'images', 'Final_Certificate_GCP.jpg'),
+            os.path.join(settings.MEDIA_ROOT, 'images', 'Final_Certificate_GCP.jpg'),
+            os.path.join(settings.BASE_DIR, 'exam', 'static', 'images', 'Final_Certificate_GCP.jpg')
         ]
         
         # Find the first existing path
-        base_image_path = os.path.join(settings.BASE_DIR, static('images/Cream_Bordered_Appreciation_Certificate.jpg'))
+        base_image_path = os.path.join(settings.BASE_DIR, static('images/Final_Certificate_GCP.jpg'))
         for path in possible_paths:
             if os.path.exists(path):
                 base_image_path = path
@@ -120,13 +120,13 @@ def generate_certificate(user,attempt_date):
 
         x_position =(image_width - text_width) / 2
         print(x_position)
-        x_position -= 50
+        x_position += 25
         print(x_position)
         # Calculate current y position (center of the image)
         y_position = image_height / 2
 
         # Move the text 50px above the current position
-        y_position -= 78  # Move text 50px upwards
+        y_position -= 72  # Move text 50px upwards
 
 
         # Add user name at the center
@@ -159,8 +159,8 @@ def send_certificate_email(user, attempt_date):
     
     if buffer is not None:
         email = EmailMessage(
-            subject="Your Certificate",
-            body="Dear {0},\n\nPlease find attached your certificate.".format(user.full_name),
+            subject="Certificate of Online Training on Research Ethics and Good Clinical Practice",
+            body="Dear Dr {0},\n\nThe Central Council for Research in Ayurvedic Sciences is glad to present the Certificate of Online Training on Research Ethics and Good Clinical Practice organized for the Investigators and Staff of the collaborative project “Anemia Control among adolescent girls through Ayurveda in the five districts under Mission Utkarsh”.\n\nPlease find the attachment.".format(user.full_name),
             from_email=settings.DEFAULT_FROM_EMAIL,
             to=[user.email]
         )

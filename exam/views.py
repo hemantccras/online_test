@@ -83,7 +83,7 @@ def take_test(request):
             if answer == question.correct_answer:
                 score += 1
         
-        passed = score >= 18
+        passed = score >= 24
         attempt = TestAttempt.objects.create(
             user=request.user,
             score=score,
@@ -98,7 +98,7 @@ def take_test(request):
             messages.success(request, 'Congratulations! You have passed the test. Your certificate has been emailed to you.')
             return redirect('certificate')
         else:
-            messages.warning(request, f'You scored {score}/25. You need 18 to pass. You can retry the test.')
+            messages.warning(request, f'You scored {score}/30. You need 24 to pass. You can retry the test.')
         return redirect('dashboard')
     
     questions = Question.objects.all()
